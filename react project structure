@@ -1,0 +1,70 @@
+GUIDELINES 
+ 
+1.       Project Structure  
+screenshot.png
+ 
+ 
+2.     Project Structure Details 
+/src/types will have common typescript interfaces/types/enums (should not be confused with reducer-types.
+/src/redux folder should have /action, /reducers, /store and /types which would contain every stuff related with react-redux. 
+/src/redux/store : Redux application store objects.
+/src/redux/actions : All the Redux actions creators will be under the actions directory. It's highly advised to organize the action creators based on the screens.
+/src/redux/types : Define all the actions types under this directory. Ideally, the organization of this directory should match that of the actions.
+/src/redux/reducers : Holds redux reducers which will utilize redux/actions and redux/types
+/src/adapters : Organize the code by making network and/or async tasks under this directory. (creation of axios instances / all endpoint configuration / axios mock api).
+/src/components : This directory hosts all the dumb React components. They receive props from React components under screens and render themselves and their children accordingly. These components should have no direct association to Redux. Redux actions must instead be passed down from the screens.
+/src/containers : Holds the top level React components. These React components are mounted by the react-router and map the Redux actions and state to props and pass down to the screens. Refrain yourself from having any logic inside these components.
+/src/config : Holds the app specific configuration variables. As always, do not store any secret keys here.
+/src/layouts : All those components which acts as holder/shell should be inside pages or layout folder. 
+/src/routes : All the app routes are defined in this file.
+/src/assets : all the assets for the application should be here. Note : all css should be dash separated style. 
+/src/assets/img : includes images .png .svg .jpg etc
+/src/assets/styles will have all style related stuffs it includes application theming, css-in-js, less, sass, fonts etc    
+/src/App.tsx : The parent React component of the app. Bridges the react-router and Redux store into the app flow.
+ 
+3.     Project Conventions 
+Folders and files names should be lower case, and dash separated (user, user-details) 
+According to functionality it should be singular or plural (utilities, service-provider, store) 
+Every folder should have index file which will act as aggregation module (usage https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export ) 
+If the file is a component, then the extension should be .tsx else it has to be .ts (only applicable to files inside /src/*) 
+Only application level data should be in store/redux, every other communication related data should be made via React.context api. 
+Try to make as many dumb components as possible (make sure DRY: Don’t Repeat Yourself) in a components folder. None of the files in this folder should be connected with application level data like (store/reducer), This should be plug and play reusable components. 
+All those components which has business logic, store connections, which utilizes application level data should be part of container folder. 
+ 
+Module Installations. 
+a.       Please separate your dev-dependency and main dependency. 
+b.       Never check-in node_modules folder 
+c.       Always have exact versions in package.json (remove ^ from ^x.x.x version) unless you trust the libraries. 
+d.       Do not install external libraries without testing it in Envestnet repository, make sure that library has good reputation over community ex(axios mock). 
+ 
+Test Cases / Service Mocks 
+a.       Every test case should be in its respective folder with naming convention file-name.test.[ts/tsx], use jest/enzyme testing framework. 
+b.       Use axios mock adapters for all web-api tests 
+ 
+React Guidelines. 
+a.       Please use REACT_HOOKS only, as React has declared it the official way to code from 16.8.0 version.
+b.       Please avoid inline styling, either create specific styles with css or use css-in-js concept.
+c.       Please use specific imports only, as unused imports has problems with build size/.
+d.       Do not overload render method with any business logic. Try to use react lifecycles/hook providers as much as possible. 
+ 
+ 
+Editor Guidelines 
+a.       Only use Visual Studio Code (VSC) Strictly, no other options. 
+b.       Install eslint extension. 
+c.       Install code spell checker extension. 
+d.       Use 2 space formatting only (alt+shift+f).
+ 
+Routes Guidelines. 
+a.       Handel 404 page or use default redirection beforehand use React Router Dom version 4 or latest. 
+b.       All routes related logic and rules should be at inside /src/routes. 
+ 
+ 
+DECISION CONFLICTS
+ 
+1.       What should we put in environment variables vs config files? 
+Answer: All those properties which are different for local/dev/prod environments should be in respective .env files. All the fixed properties such as constants will be in config files. 
+ 
+2.       How to decide what should be in dependency vs dev-dependency? 
+Answer: All those modules which are required to create build should always be in dependency other will be in dev-dependency 
+
+ 
