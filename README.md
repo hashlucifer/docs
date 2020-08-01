@@ -3,3 +3,4 @@ This section contains documentations, best practices, design patterns and hacks 
 
 ## Table of content
 - [React](./react)
+- [JavaScript](./js)
